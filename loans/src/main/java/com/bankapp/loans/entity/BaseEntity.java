@@ -1,4 +1,4 @@
-package com.bankapp.cards.entity;
+package com.bankapp.loans.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
@@ -15,9 +15,10 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
-@EntityListeners(AuditingEntityListener.class)
 @Getter @Setter @ToString
+@EntityListeners(AuditingEntityListener.class)
 public class BaseEntity {
+    //it will be seperated to shared service
     @Column(updatable = false, name = "created_at")
     @CreatedDate
     private LocalDateTime createdDate;

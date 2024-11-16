@@ -10,4 +10,10 @@ public class CustomerMapper {
         dto.setMobileNumber(customer.getMobileNumber());
         return dto;
     }
+    public static Customer toEntity(Customer customer, CustomerDto dto) {
+        customer.setName(dto.getName());
+        customer.setEmail(dto.getEmail());
+        customer.setMobileNumber(dto.getMobileNumber());
+        return customer;
+    }
 }

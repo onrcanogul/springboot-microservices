@@ -1,11 +1,13 @@
-package com.bankapp.accounts.dto;
+package com.bankapp.cards.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
+
 import java.time.LocalDateTime;
 
-@Data @AllArgsConstructor
+@AllArgsConstructor
+@Data
 public class ErrorResponseDto {
     private String apiPath;
     private HttpStatus errorCode;

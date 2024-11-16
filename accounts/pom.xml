@@ -11,6 +11,7 @@
 	<groupId>com.bankapp</groupId>
 	<artifactId>accounts</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>accounts</name>
 	<description>Microservice for Accounts</description>
 	<url/>
@@ -27,6 +28,7 @@
 		<url/>
 	</scm>
 	<properties>
+		<maven.compiler.proc>full</maven.compiler.proc>
 		<java.version>23</java.version>
 	</properties>
 	<dependencies>

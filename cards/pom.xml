@@ -27,6 +27,7 @@
 		<url/>
 	</scm>
 	<properties>
+		<maven.compiler.proc>full</maven.compiler.proc>
 		<java.version>23</java.version>
 	</properties>
 	<dependencies>
@@ -70,6 +71,9 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<image>
+						<name>onrcanogul/${project.artifactId}</name>
+					</image>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>

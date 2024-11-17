@@ -1,5 +1,5 @@
 #Start with a base image containing Java runtime
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:23-jdk
 
 #Information around who maintains the image
 MAINTAINER bankapp.com

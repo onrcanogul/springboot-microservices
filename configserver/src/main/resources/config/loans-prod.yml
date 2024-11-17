@@ -1,0 +1,10 @@
+build:
+  version: "1.0"
+
+cards:
+  message: "Welcome prod"
+  contactDetails:
+    name: "Team Lead"
+    email: "test@test.com"
+  onCallSupport:
+    - (666) 666-666

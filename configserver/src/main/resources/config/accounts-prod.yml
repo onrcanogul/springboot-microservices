@@ -1,0 +1,10 @@
+build:
+  version: "1.0"
+
+accounts:
+  message: "welcome prod"
+  contactDetails:
+    name: "Product Owner"
+    email: "onrcan@test.com"
+  onCallSupport:
+    - (444) 44 44 44

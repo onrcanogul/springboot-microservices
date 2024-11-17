@@ -1,0 +1,10 @@
+build:
+  version: "2.0"
+
+accounts:
+  message: "welcome qa"
+  contactDetails:
+    name: "QA Lead"
+    email: "onrcan@test.com"
+  onCallSupport:
+    - (666) 66 66 66

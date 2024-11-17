@@ -1,26 +1,32 @@
 package com.bankapp.accounts.controller;
 
+import com.bankapp.accounts.dto.AccountsContactInfoDto;
 import com.bankapp.accounts.dto.AccountsDto;
 import com.bankapp.accounts.dto.CustomerDto;
 import com.bankapp.accounts.dto.ResponseDto;
 import com.bankapp.accounts.service.IAccountService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
 
 @RestController
 @RequestMapping(path = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
-@AllArgsConstructor
 @Validated
 public class AccountsController {
+    @Autowired
     private IAccountService service;
+    @Autowired
+    private Environment environment;
+    @Autowired
+    private AccountsContactInfoDto accountsContactInfoDto;
 
     @GetMapping("/fetch")
     public ResponseEntity<AccountsDto> fetch(@RequestParam @Pattern(regexp = "(^$|[0-9]{10})") String mobileNumber) {
@@ -40,6 +46,18 @@ public class AccountsController {
     public ResponseEntity<ResponseDto> delete(@PathVariable @Pattern(regexp = "(^$|[0-9]{10})") String mobileNumber) {
         service.delete(mobileNumber);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new ResponseDto(204, "Account deleted successfully"));
+    }
+    @GetMapping("/build-info")
+    public ResponseEntity<String> getVersion() {
+        return ResponseEntity.ok("1");
+    }
+    @GetMapping("/java-version")
+    public ResponseEntity<String> getJavaVersion() {
+        return ResponseEntity.ok(environment.getProperty("JAVA_HOME"));
+    }
+    @GetMapping("/contact-info")
+    public ResponseEntity<AccountsContactInfoDto> getContactInfo() {
+        return ResponseEntity.ok(accountsContactInfoDto);
     }
 
 }

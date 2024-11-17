@@ -1,0 +1,10 @@
+build:
+  version: "3.0"
+
+accounts:
+  message: "welcome local"
+  contactDetails:
+    name: "Team Lead"
+    email: "onrcan@test.com"
+  onCallSupport:
+    - (555) 555 55 55

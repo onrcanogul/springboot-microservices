@@ -1,0 +1,10 @@
+build:
+  version: "1.0"
+
+cards:
+  message: "Welcome qa"
+  contactDetails:
+    name: "QA Lead"
+    email: "test@test.com"
+  onCallSupport:
+    - (444) 444-444

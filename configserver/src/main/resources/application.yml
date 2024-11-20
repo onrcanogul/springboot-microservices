@@ -2,23 +2,16 @@ spring:
   application:
     name: "configserver"
   profiles:
-    # active: native
     active: git
   cloud:
     config:
-      enabled: false
-    server:
+      server:
         git:
-          uri: "https://github.com/onrcanogul/springboot-microservices-config.git"
-          default-label: main
-          timeout: 5
-          clone-on-start: true
-          force-pull: true
-  rabbitmq:
-    host: "localhost"
-    port: 5672
-    username: "guest"
-    password: "guest"
+            uri: "https://github.com/onrcanogul/springboot-microservices-config.git"
+            default-label: main
+            timeout: 5
+            clone-on-start: true
+            force-pull: true
 
 management:
   endpoints:

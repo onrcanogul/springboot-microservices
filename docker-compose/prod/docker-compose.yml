@@ -35,7 +35,6 @@ services:
       service: microservice-base-config
 
   accounts:
-    platform: linux/amd64
     image: "onrcanogul/accounts"
     container_name: accounts-ms
     ports:
@@ -50,7 +49,6 @@ services:
       service: microservice-configserver-config
 
   loans:
-    platform: linux/amd64
     image: "onrcanogul/loans"
     container_name: loans-ms
     ports:
@@ -65,7 +63,6 @@ services:
       service: microservice-configserver-config
 
   cards:
-    platform: linux/amd64
     image: "onrcanogul/cards"
     container_name: cards-ms
     ports:

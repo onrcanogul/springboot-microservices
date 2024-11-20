@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: "gatewayserver"
+  config:
+    import: "optional:configserver:http://localhost:8071/"
+  cloud:
+    gateway:
+      discovery:  #eureka
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    gateway:
+      enabled: true
+  info:
+    env:
+      enabled: true
+
+
+
+info:
+  app:
+    name: "gatewayserver"
+    description: "bank app gateway"
+    version: "1.0.0"
+
+logging:
+  level:
+    com:
+      onrcanogul:
+        gatewayserver: DEBUG
+
+

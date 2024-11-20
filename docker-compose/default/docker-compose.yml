@@ -28,6 +28,26 @@ services:
     extends:
       file: common-config.yml
       service: microservice-db-config
+  eurekaserver:
+    image: "onrcanogul/eurekaserver"
+    container_name: eurekaserver-ms
+    ports:
+      - "8070:8070"
+    healthcheck:
+      test: "curl --fail --silent localhost:8070/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+    depends_on:
+      configserver:
+        condition: service_healthy
+    environment:
+      SPRING_APPLICATON_NAME: "eurekaserver"
+
 
   configserver:
     image: "onrcanogul/configserver"
@@ -59,7 +79,7 @@ services:
       SPRING_DATASOURCE_URL: "jdbc:mysql://loansdb:3306/loansdb"
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eureka-config
 
   accounts:
     image: "onrcanogul/accounts"
@@ -76,7 +96,7 @@ services:
       SPRING_DATASOURCE_URL: "jdbc:mysql://accountsdb:3306/accountsdb"
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eureka-config
 
   cards:
     image: "onrcanogul/cards"
@@ -93,7 +113,7 @@ services:
       SPRING_DATASOURCE_URL: "jdbc:mysql://cardsdb:3306/cardsdb"
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eureka-config
 
 networks:
   mynetwork:

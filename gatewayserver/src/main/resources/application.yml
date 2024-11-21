@@ -33,7 +33,7 @@ info:
 logging:
   level:
     com:
-      onrcanogul:
+      example:
         gatewayserver: DEBUG
 
 

@@ -7,8 +7,9 @@ import com.bankapp.accounts.dto.ResponseDto;
 import com.bankapp.accounts.service.IAccountService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,9 +28,10 @@ public class AccountsController {
     private Environment environment;
     @Autowired
     private AccountsContactInfoDto accountsContactInfoDto;
-
+    private Logger logger = LoggerFactory.getLogger(AccountsController.class);
     @GetMapping("/fetch")
-    public ResponseEntity<AccountsDto> fetch(@RequestParam @Pattern(regexp = "(^$|[0-9]{10})") String mobileNumber) {
+    public ResponseEntity<AccountsDto> fetch(@RequestHeader("correlation-id") String correlationId, @RequestParam @Pattern(regexp = "(^$|[0-9]{10})") String mobileNumber) {
+        logger.debug("correlation-id found: {} ", correlationId);
         return ResponseEntity.ok(service.fetchAccount(mobileNumber));
     }
     @PostMapping("/create")

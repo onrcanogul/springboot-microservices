@@ -17,15 +17,15 @@ public class GatewayserverApplication {
 	public RouteLocator routeConfig(RouteLocatorBuilder routeLocatorBuilder) {
 		return routeLocatorBuilder.routes()
 				.route(p -> p.path("/oogul/accounts/**")
-						.filters(f -> f.rewritePath("/oogul/accounts/(?<segment>.*)","/${segment}"))
+						.filters(f -> f.rewritePath("/oogul/accounts/(?<segment>.*)", "/${segment}"))
 						.uri("lb://ACCOUNTS"))
 				.route(p -> p.path("/oogul/loans/**")
-						.filters(f -> f.rewritePath("/oogul/loans/(?<segment>.*)","/${segment}"))
+						.filters(f -> f.rewritePath("/oogul/loans/(?<segment>.*)", "/${segment}"))
 						.uri("lb://LOANS"))
 				.route(p -> p.path("/oogul/cards/**")
-						.filters(f -> f.rewritePath("/oogul/cards/(?<segment>.*)","/${segment}"))
+						.filters(f -> f.rewritePath("/oogul/cards/(?<segment>.*)", "/${segment}"))
 						.uri("lb://CARDS")).build();
-
 	}
+
 
 }

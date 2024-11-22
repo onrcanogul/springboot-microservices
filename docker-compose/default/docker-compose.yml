@@ -1,4 +1,17 @@
 services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0.6
+    container_name: keycloak
+    ports:
+      - "7080:8080"
+    environment:
+      KEYCLOAK_ADMIN: "admin"
+      KEYCLOAK_ADMIN_PASSWORD: "admin"
+    command: "start-dev"
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
+
   redis:
     image: redis
     ports:
@@ -79,8 +92,6 @@ services:
   loans:
     image: "onrcanogul/loans"
     container_name: loans-ms
-    ports:
-      - "8090:8090"
     depends_on:
       loansdb:
         condition: service_healthy
@@ -98,8 +109,6 @@ services:
   accounts:
     image: "onrcanogul/accounts"
     container_name: accounts-ms
-    ports:
-      - "8080:8080"
     depends_on:
       accountsdb:
         condition: service_healthy
@@ -117,8 +126,6 @@ services:
   cards:
     image: "onrcanogul/cards"
     container_name: cards-ms
-    ports:
-      - "9000:9000"
     depends_on:
       cardsdb:
         condition: service_healthy
@@ -149,6 +156,7 @@ services:
         condition: service_healthy
     environment:
       SPRING_APPLICATION_NAME: "gatewayserver"
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI: "http://keycloak:8080/realms/master/protocol/openid-connect/certs"
       SPRING_DATA_REDIS_CONNECT-TIMEOUT: 2s
       SPRING_DATA_REDIS_HOST: redis
       SPRING_DATA_REDIS_PORT: 6379

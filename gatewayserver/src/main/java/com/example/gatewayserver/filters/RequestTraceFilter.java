@@ -29,6 +29,7 @@ public class RequestTraceFilter implements GlobalFilter {
                     filterUtility.getCorrelationId(requestHeaders));
         } else {
             String correlationID = generateCorrelationId();
+            logger.debug("Before setting correlation ID: {}", exchange.getRequest().getHeaders());
             exchange = filterUtility.setCorrelationId(exchange, correlationID);
             logger.debug("correlation-id generated in RequestTraceFilter : {}", correlationID);
         }

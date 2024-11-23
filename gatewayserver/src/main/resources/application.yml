@@ -22,7 +22,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwt-set-url: "http://localhost:7080/realms/master/protocol/openid-connect/certs"
+          jwk-set-uri: "http://localhost:7080/realms/master/protocol/openid-connect/certs"
 
 management:
   endpoints:
@@ -35,9 +35,6 @@ management:
   info:
     env:
       enabled: true
-
-
-
 info:
   app:
     name: "gatewayserver"

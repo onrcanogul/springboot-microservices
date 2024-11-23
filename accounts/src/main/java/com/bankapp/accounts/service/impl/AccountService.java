@@ -1,6 +1,7 @@
 package com.bankapp.accounts.service.impl;
 
 import com.bankapp.accounts.constants.AccountsConstants;
+import com.bankapp.accounts.dto.AccountMessageDto;
 import com.bankapp.accounts.dto.AccountsDto;
 import com.bankapp.accounts.dto.CustomerDto;
 import com.bankapp.accounts.entity.Accounts;
@@ -14,6 +15,9 @@ import com.bankapp.accounts.repository.CustomerRepository;
 import com.bankapp.accounts.service.IAccountService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -25,6 +29,8 @@ import java.util.Random;
 public class AccountService implements IAccountService {
     private AccountRepository accountRepository;
     private CustomerRepository customerRepository;
+    private final StreamBridge streamBridge;
+    private final Logger log = LoggerFactory.getLogger(AccountService.class);
 
     @Override
     public AccountsDto fetchAccount(String mobileNumber) {
@@ -43,8 +49,15 @@ public class AccountService implements IAccountService {
             throw new CustomerAlreadyExistException("Customer already exist with mobile number: "+dto.getMobileNumber());
         }
         Customer savedCustomer = customerRepository.save(customer);
-        accountRepository.save(createNewAccount(savedCustomer));
+        Accounts savedAccount = accountRepository.save(createNewAccount(savedCustomer));
+        sendCommunication(savedAccount, savedCustomer);
     }
+    private void sendCommunication(Accounts accounts, Customer customer) {
+        var result = streamBridge
+                .send("sendCommunication-out-0", new AccountMessageDto(accounts.getAccountNumber(), customer.getName(), customer.getEmail(), customer.getMobileNumber()));
+        log.info("Sent to communication request : " + result);
+    }
+
 
     @Override
     public void update(AccountsDto dto) {

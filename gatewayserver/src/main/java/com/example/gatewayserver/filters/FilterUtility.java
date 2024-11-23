@@ -18,11 +18,11 @@ public class FilterUtility {
         }
     }
 
-    public ServerWebExchange setRequestHeader(ServerWebExchange exchange, String name, String value) {
-        return exchange.mutate().request(exchange.getRequest().mutate().header(name, value).build()).build();
-    }
-
     public ServerWebExchange setCorrelationId(ServerWebExchange exchange, String correlationId) {
-        return this.setRequestHeader(exchange, CORRELATION_ID, correlationId);
+        return exchange.mutate()
+                .request(exchange.getRequest().mutate()
+                        .header(FilterUtility.CORRELATION_ID, correlationId)
+                        .build())
+                .build();
     }
 }
